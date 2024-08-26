@@ -8,9 +8,9 @@ from selenium.webdriver.common.keys import Keys
 
 options = Options()
 
-SERVER = 'yooooooooooooo'
+SERVER = 'theguy'
 DATABASE = 'wam'
-USERNAME = 'iampowerful'
+USERNAME = 'iampowerul'
 PASSWORD = 'supersecretpassword'
 
 
@@ -19,16 +19,18 @@ connectionString = f'DRIVER={"ODBC Driver 17 for SQL Server"};SERVER={SERVER};DA
 
 
 if __name__ == "__main__":
-    #console.elevate()
     conn = pyodbc.connect(connectionString)
     SQL_QUERY = "SELECT * FROM WhatsAppMessages where sentStatus is null"
     cursor = conn.cursor()
     cursor.execute(SQL_QUERY)
     records = cursor.fetchall()
     for r in records:
-        now = datetime.now()
-        dttm = now.strftime("%Y%m%d, %H%M%S")
-        mssg = r.messagetext + " " + dttm
+        SQL_QUERY = "UPDATE WhatsAppMessages SET sentStatus=1 WHERE idno=" + str(r.idno)
+        print(SQL_QUERY)
+        cursor=conn.cursor()
+        cursor.execute(SQL_QUERY)
+
+        mssg = r.messagetext
         phn = "91" + r.receiver
         print(f"{r.receiver}\t{mssg}")
         
@@ -38,9 +40,10 @@ if __name__ == "__main__":
 
         driver.get("https://web.whatsapp.com/send?phone=" + phn)
 
-        time.sleep(30)
-        message_box = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div[2]/div[1]")
-
+        time.sleep(20)
+        message_box = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]")
+        # /html/body/div[1]/div/div/div[2]/div[4]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1] new
+        # /html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div[2]/div[1]     old
         wamessage = mssg
 
         for mm in wamessage:
