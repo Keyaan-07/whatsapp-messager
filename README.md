@@ -14,3 +14,6 @@ i think i have to change XPATH
 
 session4:
 fixed the XPATH, messages are now being sent. but the problem is they are not being removed from the db. fixing that in the next session....
+
+session5:
+everything fixed, code works, database is now being updated
