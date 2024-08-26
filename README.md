@@ -11,3 +11,6 @@ I am unable to fix the code :(
 session3:
 I fixed the code less goooo. db is now connecting but the message is not being sent :(
 i think i have to change XPATH
+
+session4:
+fixed the XPATH, messages are now being sent. but the problem is they are not being removed from the db. fixing that in the next session....
