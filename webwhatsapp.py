@@ -1,6 +1,5 @@
 import time 
 import pyodbc
-from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
@@ -8,9 +7,9 @@ from selenium.webdriver.common.keys import Keys
 
 options = Options()
 
-SERVER = 'theguy'
+SERVER = 'yoooooooooooo'
 DATABASE = 'wam'
-USERNAME = 'iampowerul'
+USERNAME = 'iampowerful'
 PASSWORD = 'supersecretpassword'
 
 
@@ -19,21 +18,22 @@ connectionString = f'DRIVER={"ODBC Driver 17 for SQL Server"};SERVER={SERVER};DA
 
 
 if __name__ == "__main__":
+
     conn = pyodbc.connect(connectionString)
     SQL_QUERY = "SELECT * FROM WhatsAppMessages where sentStatus is null"
     cursor = conn.cursor()
     cursor.execute(SQL_QUERY)
+
     records = cursor.fetchall()
+
     for r in records:
-        SQL_QUERY = "UPDATE WhatsAppMessages SET sentStatus=1 WHERE idno=" + str(r.idno)
-        print(SQL_QUERY)
-        cursor=conn.cursor()
-        cursor.execute(SQL_QUERY)
+
+        
 
         mssg = r.messagetext
         phn = "91" + r.receiver
         print(f"{r.receiver}\t{mssg}")
-        
+
         options.add_argument("-profile")
         options.add_argument("C:/Users/Irshad Khatri/AppData/Roaming/Mozilla/Firefox/Profiles/rlyugxw5.default-release-1724559328504")
         driver = webdriver.Firefox(options=options)
@@ -50,5 +50,12 @@ if __name__ == "__main__":
             message_box.send_keys(mm)
         time.sleep(1)
         message_box.send_keys(Keys.RETURN)
+        
+        SQL_QUERY1 = "UPDATE WhatsAppMessages SET sentStatus=1 WHERE idno="  + str(r.idno)
+        # "UPDATE WhatsAppMessages SET sentStatus=1 WHERE idno="  + str(r.idno)
+        print(SQL_QUERY1)
+        cursor.execute(SQL_QUERY1)
+        conn.commit()
+
         time.sleep(5)
         driver.quit()
